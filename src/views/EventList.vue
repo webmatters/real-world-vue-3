@@ -6,8 +6,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
+import EventService from '@/services/EventService.js'
 
 export default {
   name: 'EventList',
@@ -17,6 +17,14 @@ export default {
   data() {
     return {
       events: [],
+    }
+  },
+  async created() {
+    try {
+      const { data } = await EventService.getEvents()
+      this.events = data
+    } catch (error) {
+      console.log(error)
     }
   },
 }
